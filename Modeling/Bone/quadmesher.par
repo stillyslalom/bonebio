@@ -1,0 +1,4 @@
+Contour tempquadmesh.inp
+Frontal
+NoDraw
+Output tempquadmesh.mesh
