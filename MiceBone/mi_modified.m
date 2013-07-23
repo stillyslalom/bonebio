@@ -31,6 +31,8 @@ A = input('PIXEL size (in mm) AND PRESS ENTER KEY      :');
 
 A = A*A;  % area of each pixel in mm^2
 
+nmats = input(' ENTER DESIRED NUMBER OF MATERIAL SUBDIVISIONS (DEFAULT 20)      :');
+
 
 disp(' ');
 disp(' ');
@@ -63,75 +65,83 @@ B(:,5) = (E)/min_E;    % new column showing relative modulus w.r.t min. E
 %create basis for dividing bone into 20 materials based on relative modulus
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-ratio_range = (max_ratio-min_ratio)/20;
+% ratio_range = (max_ratio-min_ratio)/20;
+ratio_range = (max_ratio-min_ratio)/nmats;
 
 % divide bone into 20 materials based on relative modulus
-
 for i = 1:SIZEB
-    
-   if ((B(i,5) >=1)&&(B(i,5)<(1+ratio_range)))
-        
-        B(i,6) = 1;
-            
-   elseif ((B(i,5) >=(1+ratio_range))&&(B(i,5)<(1+2*ratio_range)))
-            B(i,6) = 1+ratio_range;
-            
-   elseif ((B(i,5) >=(1+2*ratio_range))&&(B(i,5)<(1+3*ratio_range)))
-            B(i,6) = 1+2*ratio_range;
-          
-   elseif ((B(i,5) >=(1+3*ratio_range))&&(B(i,5)<(1+4*ratio_range)))
-            B(i,6) = 1+3*ratio_range;
-          
-   elseif ((B(i,5) >=(1+4*ratio_range))&&(B(i,5)<(1+5*ratio_range)))
-            B(i,6) = 1+4*ratio_range;
-           
-   elseif ((B(i,5) >=(1+5*ratio_range))&&(B(i,5)<(1+6*ratio_range)))
-            B(i,6) = 1+5*ratio_range;
-           
-   elseif ((B(i,5) >=(1+6*ratio_range))&&(B(i,5)<(1+7*ratio_range)))
-            B(i,6) = 1+6*ratio_range;
-            
-   elseif ((B(i,5) >=(1+7*ratio_range))&&(B(i,5)<(1+8*ratio_range)))
-            B(i,6) = 1+7*ratio_range;
-           
-   elseif ((B(i,5) >=(1+8*ratio_range))&&(B(i,5)<(1+9*ratio_range)))
-            B(i,6) = 1+8*ratio_range;
-           
-   elseif ((B(i,5) >=(1+9*ratio_range))&&(B(i,5)<(1+10*ratio_range)))
-            B(i,6) = 1+9*ratio_range;
-             
-   elseif ((B(i,5) >=(1+10*ratio_range))&&(B(i,5)<(1+11*ratio_range)))
-            B(i,6) = 1+10*ratio_range;
-          
-   elseif ((B(i,5) >=(1+11*ratio_range))&&(B(i,5)<(1+12*ratio_range)))
-            B(i,6) = 1+11*ratio_range;
-            
-   elseif ((B(i,5) >=(1+12*ratio_range))&&(B(i,5)<(1+13*ratio_range)))
-            B(i,6) = 1+12*ratio_range;
-            
-  elseif ((B(i,5) >=(1+13*ratio_range))&&(B(i,5)<(1+14*ratio_range)))
-            B(i,6) = 1+13*ratio_range;
-        
-  elseif ((B(i,5) >=(1+14*ratio_range))&&(B(i,5)<(1+15*ratio_range)))
-            B(i,6) = 1+14*ratio_range;
-            
-  elseif ((B(i,5) >=(1+15*ratio_range))&&(B(i,5)<(1+16*ratio_range)))
-            B(i,6) = 1+15*ratio_range;
-           
-  elseif ((B(i,5) >=(1+16*ratio_range))&&(B(i,5)<(1+17*ratio_range)))
-            B(i,6) = 1+16*ratio_range;
-            
-  elseif ((B(i,5) >=(1+17*ratio_range))&&(B(i,5)<(1+18*ratio_range)))
-            B(i,6) = 1+17*ratio_range;
-            
-  elseif ((B(i,5) >=(1+18*ratio_range))&&(B(i,5)<(1+19*ratio_range)))
-            B(i,6) = 1+18*ratio_range;
-            
-   else 
-            B(i,6) = (1+19*ratio_range);
-                  
+    for n = 1:nmats
+        if ((B(i,5) >= (1+(n-1)*ratio_range)) && (B(i,5) < (1+n*ratio_range)))
+             B(i,6) = 1+(n-1)*ratio_range;
+        end
     end
 end
+
+% for i = 1:SIZEB
+%     
+%    if ((B(i,5) >=1)&&(B(i,5)<(1+ratio_range)))
+%         
+%         B(i,6) = 1;
+%             
+%    elseif ((B(i,5) >=(1+ratio_range))&&(B(i,5)<(1+2*ratio_range)))
+%             B(i,6) = 1+ratio_range;
+%             
+%    elseif ((B(i,5) >=(1+2*ratio_range))&&(B(i,5)<(1+3*ratio_range)))
+%             B(i,6) = 1+2*ratio_range;
+%           
+%    elseif ((B(i,5) >=(1+3*ratio_range))&&(B(i,5)<(1+4*ratio_range)))
+%             B(i,6) = 1+3*ratio_range;
+%           
+%    elseif ((B(i,5) >=(1+4*ratio_range))&&(B(i,5)<(1+5*ratio_range)))
+%             B(i,6) = 1+4*ratio_range;
+%            
+%    elseif ((B(i,5) >=(1+5*ratio_range))&&(B(i,5)<(1+6*ratio_range)))
+%             B(i,6) = 1+5*ratio_range;
+%            
+%    elseif ((B(i,5) >=(1+6*ratio_range))&&(B(i,5)<(1+7*ratio_range)))
+%             B(i,6) = 1+6*ratio_range;
+%             
+%    elseif ((B(i,5) >=(1+7*ratio_range))&&(B(i,5)<(1+8*ratio_range)))
+%             B(i,6) = 1+7*ratio_range;
+%            
+%    elseif ((B(i,5) >=(1+8*ratio_range))&&(B(i,5)<(1+9*ratio_range)))
+%             B(i,6) = 1+8*ratio_range;
+%            
+%    elseif ((B(i,5) >=(1+9*ratio_range))&&(B(i,5)<(1+10*ratio_range)))
+%             B(i,6) = 1+9*ratio_range;
+%              
+%    elseif ((B(i,5) >=(1+10*ratio_range))&&(B(i,5)<(1+11*ratio_range)))
+%             B(i,6) = 1+10*ratio_range;
+%           
+%    elseif ((B(i,5) >=(1+11*ratio_range))&&(B(i,5)<(1+12*ratio_range)))
+%             B(i,6) = 1+11*ratio_range;
+%             
+%    elseif ((B(i,5) >=(1+12*ratio_range))&&(B(i,5)<(1+13*ratio_range)))
+%             B(i,6) = 1+12*ratio_range;
+%             
+%   elseif ((B(i,5) >=(1+13*ratio_range))&&(B(i,5)<(1+14*ratio_range)))
+%             B(i,6) = 1+13*ratio_range;
+%         
+%   elseif ((B(i,5) >=(1+14*ratio_range))&&(B(i,5)<(1+15*ratio_range)))
+%             B(i,6) = 1+14*ratio_range;
+%             
+%   elseif ((B(i,5) >=(1+15*ratio_range))&&(B(i,5)<(1+16*ratio_range)))
+%             B(i,6) = 1+15*ratio_range;
+%            
+%   elseif ((B(i,5) >=(1+16*ratio_range))&&(B(i,5)<(1+17*ratio_range)))
+%             B(i,6) = 1+16*ratio_range;
+%             
+%   elseif ((B(i,5) >=(1+17*ratio_range))&&(B(i,5)<(1+18*ratio_range)))
+%             B(i,6) = 1+17*ratio_range;
+%             
+%   elseif ((B(i,5) >=(1+18*ratio_range))&&(B(i,5)<(1+19*ratio_range)))
+%             B(i,6) = 1+18*ratio_range;
+%             
+%    else 
+%             B(i,6) = (1+19*ratio_range);
+%                   
+%     end
+% end
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -203,86 +213,6 @@ while k < SIZEB  %main loop to go thru all pixel information in all slices
         k = k+1; 
         
     end             % end of loop calculating MI
-    
-    
- % Do not need this commented portion below. Jump to line 249   
- %xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  
-     % loop calculates +/- C values and corresponding n values along y dirn.
-   %{ 
-    while (B(n,3)==z_coord)
-        
-        if (B(n,2)-cyy) > 0 % calculate(+)'C'value along y direction
-            
-            tmp_ymaxplus = B(n,2)-cyy; 
-                      
-            if tmp_ymaxplus > ymaxplus
-                
-               ymaxplus = tmp_ymaxplus;
-               n_plus = 0;              %initialise modulus ratio 'n'
-               %ctr = n;                 %new counter variable for next loop
-               
-               while ((B(n,2)-cyy) == ymaxplus)
-                   
-                   if B(n,6) > n_plus
-                       
-                       n_plus = B(n,6);
-                                              
-                   end
-                   
-                   if n == SIZEB
-                       break;
-                   end
-                   
-                   n= n + 1;
-                   
-               end
-               
-               n = n-1;   %re-adjust counter'n' after last 'ctr'increment
-            end
-            
-        else   % calculate (-) 'C' value along y direction
-            
-            tmp_ymaxminus = B(n,2)-cyy;
-                        
-            if tmp_ymaxminus < ymaxminus
-                
-                ymaxminus = tmp_ymaxminus;
-                n_minus = 0;
-                %ctr = n;
-                
-                while ((B(n,2)-cyy) == ymaxminus)
-                   
-                   if B(n,6) > n_minus
-                       
-                       n_minus = B(n,6);
-                                              
-                   end
-                   
-                   if n == SIZEB
-                       break;
-                   end
-                   
-                   n = n + 1;
-                   
-                end
-                n = n - 1;
-            end
-            
-        end
-        
-        if n == SIZEB
-            break;
-        end
-       
-        n = n+1; 
-        
-    end
-         
-    %A = 0.124; % area of each pixel in mm^2
-    %}
-% Do not need above commented portion     
-%xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx%
     
     
 % XXXXXXX    Calculating various geometry values for each slice    XXXXXXX
